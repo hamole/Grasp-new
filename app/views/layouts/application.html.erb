@@ -2,13 +2,52 @@
 <html>
 <head>
   <title>GraspNew</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+  <![endif]-->
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, intial-scale=1.0"
 </head>
 <body>
+  <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse"
+          data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </a>
+        <a class="brand pull-left" href="#">Grasp</a>
+        <div class="nav-collapse">
+          <nav>
+            <ul class="nav pull-right">
+            <% if user_signed_in? %>
+              <li><a>Logged in as <strong><%= current_user.email %></strong></a></li>
+              <li> <%= link_to 'Edit Profile', edit_user_registration_path %> </li>
+              <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+            <% else %>
+              <li> <%= link_to 'Sign up', new_user_registration_path %> </li>
+              <li> <%= link_to "Login", new_user_session_path %> </li>
+            <% end %>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <div class="row">
+      <div class="span10 center">
+        <% flash.each do |name, msg| %>
+          <%= content_tag :div, msg, id: "flash_#{name}" %>
+        <% end %>
 
-<%= yield %>
-
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
