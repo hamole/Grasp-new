@@ -23,6 +23,9 @@
         <a class="brand pull-left" href="#">Grasp</a>
         <div class="nav-collapse">
           <nav>
+            <ul class="nav pull-left">
+              <li> <%= link_to "Articles", articles_path %> </li>
+            </ul>
             <ul class="nav pull-right">
             <% if user_signed_in? %>
               <li><a>Logged in as <strong><%= current_user.email %></strong></a></li>
@@ -31,7 +34,6 @@
             <% else %>
               <li> <%= link_to 'Sign up', new_user_registration_path %> </li>
               <li> <%= link_to "Login", new_user_session_path %> </li>
-              <li> <%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %> </li>
             <% end %>
             </ul>
           </nav>
@@ -50,7 +52,6 @@
         <% end %>
 
         <%= yield %>
-        <%= debug params %> 
       </div>
     </div>
   </div>

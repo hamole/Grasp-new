@@ -43,5 +43,6 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'devise'
 gem 'omniauth-twitter'
+gem 'omniauth-google-oauth2'
 
 gem 'figaro'
