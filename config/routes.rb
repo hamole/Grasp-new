@@ -2,7 +2,12 @@ GraspNew::Application.routes.draw do
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
                      controllers: {omniauth_callbacks: "omniauth_callbacks"}
 
-  resources :articles
+  resources :articles do
+    collection do
+     get 'import'
+     post 'import'
+    end
+  end
 
   get "home_controller/index"
 

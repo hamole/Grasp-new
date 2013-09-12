@@ -13,9 +13,7 @@ gem 'sqlite3'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer'
-  gem 'less-rails'
-  gem 'twitter-bootstrap-rails'
+  gem 'bootstrap-sass'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platform => :ruby
@@ -44,5 +42,7 @@ gem 'simple_form'
 gem 'devise'
 gem 'omniauth-twitter'
 gem 'omniauth-google-oauth2'
+
+gem 'pismo'
 
 gem 'figaro'

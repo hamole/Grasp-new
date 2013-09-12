@@ -1,0 +1,19 @@
+<%- model_class = Article -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'Import%{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= form_tag({:action=> 'import', :controller => 'articles'}, {:class => 'form-horizontal'}) do %>
+  <% if @article.present? && @article.errors.present? %>
+    <div class="alert alert-error">Error importing article. Please check the url and try again</div>
+  <% end %>
+  <div class="form-inputs">
+    <label class="string required control-label" for="url"><abbr title="required">*</abbr> URL</label>
+    <%= text_field_tag 'url', nil, placeholder: 'Enter url of article to import' %>
+  </div>
+
+  <div class="form-actions">
+    <%= submit_tag "Submit", :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                articles_path, :class => 'btn' %>
+  </div>
+<% end %>

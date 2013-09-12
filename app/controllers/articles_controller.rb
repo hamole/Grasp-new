@@ -81,4 +81,20 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  #GET /articles/import
+  #POST /articles/import
+  def import
+    if request.post?
+      source = Pismo::Document.new(params[:url])
+      @article = current_user.articles.build(title: source.title, content: source.html_body)
+      if @article.save
+        redirect_to @article, notice: 'Article was successfully created.'
+      else
+        render "import"
+      end
+    else
+      render "import"
+    end
+  end
 end
