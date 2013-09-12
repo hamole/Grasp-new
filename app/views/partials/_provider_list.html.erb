@@ -1,7 +1,7 @@
 <h2>Sign in with</h2>
 <div class="provider-list">  
   <ul>
-    <li><a href="<%=user_omniauth_authorize_path(:google_oauth2) %>"><i class="icon-google-plus-sign google-icon"> Google</i></a></li>
-    <li><a href="<%= user_omniauth_authorize_path(:twitter) %>"><i class="icon-twitter-sign twitter-icon"> Twitter</i></a></li>
+    <li class="btn btn-large"><a href="<%=user_omniauth_authorize_path(:google_oauth2) %>" class="google-icon"><i class="icon-google-plus-sign"></i> Google</a></li>
+    <li class="btn btn-large"><a href="<%= user_omniauth_authorize_path(:twitter) %>" class="twitter-icon"><i class="icon-twitter-sign"></i> Twitter</a></li>
   </ul>
 </div>

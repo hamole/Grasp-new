@@ -7,7 +7,7 @@
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @article.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
-  <dd><%= sanitize @article.content %></dd>
+  <dd><div class="entry"><%= sanitize @article.content %></div></dd>
 </dl>
 
 <div class="form-actions">

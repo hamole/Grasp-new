@@ -8,14 +8,40 @@ $navbarText: #eee;
 $navbarLinkColor: #eee;
 
 @import "bootstrap";
+@import "font-awesome";
 
-body { padding-top: 60px; }
+body {
+  padding-top: 60px; 
+  background-color: #ffffff;
+  color: #333333;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-family: "Droid Sans","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+}
 
 @import "bootstrap-responsive";
 
 .center { float: none; margin-left: auto; margin-right: auto; }
 
-.provider-list { font-size: 31.5px; margin-left: 180px; }
+.provider-list { margin-left: 180px; }
 .provider-list ul { margin: 0px; list-style: none;}
 .google-icon { color: red; }
 .twitter-icon { color: #2C77BA; }
+
+.entry {
+  font-family:"ff-tisa-web-pro",Georgia,Cambria,"Times New Roman",Times,serif;
+  font-weight:400;
+  font-size:22px;
+  line-height:1.45;
+ }
+.entry a { }
+.entry a:hover { }
+
+.entry a, .entry a:visited, .entry a:hover, .entry a:active  {
+  color: #6699FF;
+  background-color: #ffffff;
+}
+
+.entry li {
+  font-weight: 400;
+}
