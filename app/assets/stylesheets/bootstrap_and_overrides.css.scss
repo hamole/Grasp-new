@@ -13,7 +13,7 @@ $navbarLinkColor: #eee;
 body {
   padding-top: 60px; 
   background-color: #ffffff;
-  color: #333333;
+  color: #333332;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   font-family: "Droid Sans","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
@@ -21,7 +21,7 @@ body {
 
 @import "bootstrap-responsive";
 
-.center { float: none; margin-left: auto; margin-right: auto; }
+.center { float: none; margin-left: auto; margin-right: auto; max-width: 700px; }
 
 .provider-list { margin-left: 180px; }
 .provider-list ul { margin: 0px; list-style: none;}
@@ -29,19 +29,18 @@ body {
 .twitter-icon { color: #2C77BA; }
 
 .entry {
-  font-family:"ff-tisa-web-pro",Georgia,Cambria,"Times New Roman",Times,serif;
-  font-weight:400;
-  font-size:22px;
-  line-height:1.45;
- }
-.entry a { }
-.entry a:hover { }
-
-.entry a, .entry a:visited, .entry a:hover, .entry a:active  {
-  color: #6699FF;
-  background-color: #ffffff;
+  font-family: "Lora",Georgia,Cambria,"Times New Roman",Times,serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 1.45;
+  p, blockquoute {
+    margin-bottom: 31px;
+  }
+  blockquoute {
+    font-size: 20px;
+  }
 }
 
-.entry li {
-  font-weight: 400;
+h1 {
+  letter-spacing: -1px;
 }

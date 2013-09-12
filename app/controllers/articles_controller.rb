@@ -86,7 +86,7 @@ class ArticlesController < ApplicationController
   #POST /articles/import
   def import
     if request.post?
-      source = Pismo::Document.new(params[:url])
+      source = Pismo::Document.new(params[:url], reader: :cluster)
       @article = current_user.articles.build(title: source.title, content: source.html_body)
       if @article.save
         redirect_to @article, notice: 'Article was successfully created.'
@@ -97,4 +97,5 @@ class ArticlesController < ApplicationController
       render "import"
     end
   end
+
 end

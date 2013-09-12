@@ -1,9 +1,41 @@
-<%= simple_form_for @article, :html => { :class => 'form-horizontal' } do |f| %>
+<script>
+  function copyContent (){
+    $("input[name='article[title]']").val($("#article-entry :first-child").text());
+    $("input[name='article[content]']").val($("#article-entry :not(:first-child)").html());
+    return true;
+  }
+</script>
+<%= simple_form_for @article, :html => { :class => 'form-horizontal', :onsubmit=> 'return copyContent()', novalidate: true } do |f| %>
   <%= f.error_notification %>
-  <div class="form-inputs">
-    <%= f.input :title, required: true %>
-    <%= f.input :content, required: true %>
-  </div>
+  <% if f.object.errors.any? %>
+    <div id="error_explanation">
+       <div class="alert alert-error">
+         The form contains <%= pluralize(f.object.errors.count, "error") %>.
+       </div>
+      <ul>
+       <% f.object.errors.full_messages.each do |msg| %>
+        <li>* <%= msg %></li>
+       <% end %>
+     </ul>
+    </div>
+  <% end %>
+  <section class="g-body">
+    <article class="entry" id="article-entry" contenteditable="true">
+      <% if f.object.title? %>
+        <h1> <%= f.object.title %></h1>
+      <% else %>
+        <h1> Title </h1>
+      <% end %>
+      
+      <% if f.object.content? %>
+        <p> <%= f.object.content %></p>
+      <% else %>
+        <p> Body</p>
+      <% end %>
+    </article>
+  </section>
+    <%= f.input :title, :as => :hidden  %>
+    <%= f.input :content, :as => :hidden %>
 
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn btn-primary' %>
@@ -11,3 +43,5 @@
                 articles_path, :class => 'btn' %>
   </div>
 <% end %>
+
+
