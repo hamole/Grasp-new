@@ -8,7 +8,7 @@
   <% end %>
   <div class="form-inputs">
     <label class="string required control-label" for="url"><abbr title="required">*</abbr> URL</label>
-    <%= text_field_tag 'url', nil, placeholder: 'Enter url of article to import' %>
+    <%= text_field_tag 'url', nil, placeholder: 'Enter url of article to import', value: params[:url] ? params[:url] : '' %>
   </div>
 
   <div class="form-actions">
