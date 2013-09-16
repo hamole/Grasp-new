@@ -5,7 +5,7 @@ function isEmpty( el ){
 function copyContent (){
 	$("input[name='article[title]']").val($("#article-entry :first").text());
 	var content = '';
-	$("#article-entry :not(:first-child)").each(
+	$("#article-entry :not(:first)").each(
 	  function(){
 	    if($(this).is("img") || !isEmpty($(this))){
 	      content += $(this).outerHTML();
