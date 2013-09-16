@@ -78,7 +78,6 @@
 
     document.onkeyup = function(event){
       var sel = window.getSelection();
-
       // FF will return sel.anchorNode to be the parentNode when the triggered keyCode is 13
       if (sel.anchorNode && sel.anchorNode.nodeName !== "ARTICLE") {
         triggerNodeAnalysis(event);
@@ -154,12 +153,14 @@
       }
     });
   }
-
+  
   function preprocessKeyDown(event) {
     var sel = window.getSelection(),
         parentParagraph = getParentWithTag(sel.anchorNode, "p"),
         p,
-        isHr;
+        isHr,
+        range,
+        addedP = false;
 
     if (event.keyCode === 13 && parentParagraph) {
       prevSibling = parentParagraph.previousSibling;
@@ -169,6 +170,32 @@
       // Stop enters from creating another <p> after a <hr> on enter
       if (isHr) {
         event.preventDefault();
+      } else {
+        p = document.createElement("p");
+        insertAfter(parentParagraph, p);
+        p.innerHTML = "&nbsp;";
+        if (window.getSelection && window.document.createRange) {                    
+          range = window.document.createRange();
+          range.selectNodeContents(p);
+          range.collapse(true);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        } else {
+          if (window.document.body.createTextRange) {
+            range = window.document.body.createTextRange();
+            range.moveToElementText(el);
+            range.collapse(true);
+            range.select();
+          }
+        }
+        addedP = true;
+        if (addedP) {
+            if (typeof event.preventDefault != "undefined") {
+                event.preventDefault();
+            } else {
+                eventt.returnValue = false;
+            }
+        }
       }
     }
   }

@@ -41,6 +41,7 @@ class ArticlesController < ApplicationController
   # POST /articles
   # POST /articles.json
   def create
+    params[:article][:content] = tag_content(params[:article][:content], false)
     @article = current_user.articles.build(params[:article])
 
     respond_to do |format|
@@ -58,7 +59,7 @@ class ArticlesController < ApplicationController
   # PUT /articles/1.json
   def update
     @article = Article.find(params[:id])
-
+    params[:article][:content] = tag_content(params[:article][:content], false)
     respond_to do |format|
       if @article.update_attributes(params[:article])
         format.html { redirect_to @article, notice: 'Article was successfully updated.' }
@@ -86,12 +87,9 @@ class ArticlesController < ApplicationController
   #POST /articles/import
   def import
     if request.post?
-      source = Pismo::Document.new(params[:url], reader: :cluster, :all_images => true)
-      html = Nokogiri::HTML::DocumentFragment.parse(source.html_body)
-      html.css('p').each do |p|
-        p['id'] = Zlib.crc32 p.content
-      end
-      @article = current_user.articles.build(title: source.title, content: html.to_html)
+      source = Pismo::Document.new(params[:url], reader: :cluster)
+      content = tag_content(source.html_body, true)
+      @article = current_user.articles.build(title: source.title, content: content)
       if @article.save
         redirect_to @article, notice: 'Article was successfully created.'
       else
@@ -102,4 +100,14 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def tag_content(content,import)
+    tagged_content = Nokogiri::HTML::DocumentFragment.parse(content)
+    tagged_content.css('p, blockquote').each do |block|
+      if block['id'].nil? || import
+        puts block.content
+        block['id'] = Zlib.crc32 block.content
+      end
+    end
+    return tagged_content.to_s
+  end
 end
