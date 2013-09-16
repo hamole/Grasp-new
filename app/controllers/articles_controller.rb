@@ -86,8 +86,12 @@ class ArticlesController < ApplicationController
   #POST /articles/import
   def import
     if request.post?
-      source = Pismo::Document.new(params[:url], reader: :cluster)
-      @article = current_user.articles.build(title: source.title, content: ActionController::Base.helpers.sanitize(source.html_body))
+      source = Pismo::Document.new(params[:url], reader: :cluster, :all_images => true)
+      html = Nokogiri::HTML::DocumentFragment.parse(source.html_body)
+      html.css('p').each do |p|
+        p['id'] = Zlib.crc32 p.content
+      end
+      @article = current_user.articles.build(title: source.title, content: html.to_html)
       if @article.save
         redirect_to @article, notice: 'Article was successfully created.'
       else

@@ -12,16 +12,16 @@
      </ul>
     </div>
   <% end %>
-  <section class="g-body">
+  <section>
     <article class="entry" id="article-entry" contenteditable="true">
       <% if f.object.title? %>
-        <h1> <%= sanitize f.object.title %></h1>
+        <h1> <%= f.object.title %></h1>
       <% else %>
         <h1> Title </h1>
       <% end %>
       
       <% if f.object.content? %>
-        <%= sanitize f.object.content %>
+        <%= sanitize f.object.content, attributes: %w(id class href src) %>
       <% else %>
         <p> Body </p>
       <% end %>
