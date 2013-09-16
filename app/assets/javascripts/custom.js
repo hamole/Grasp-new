@@ -7,7 +7,7 @@ function copyContent (){
 	var content = '';
 	$("#article-entry :not(:first-child)").each(
 	  function(){
-	    if(!isEmpty($(this))){
+	    if($(this).is("img") || !isEmpty($(this))){
 	      content += $(this).outerHTML();
 	    }
 	  }

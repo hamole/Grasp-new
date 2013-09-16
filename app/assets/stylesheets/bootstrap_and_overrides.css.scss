@@ -16,18 +16,20 @@ body {
   color: #333332;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  font-family: "Droid Sans","Myriad Pro","Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Verdana,sans-serif;
+  font-family: "Lora",Georgia,Cambria,"Times New Roman",Times,serif;
+  word-wrap:break-word;
 }
 
 @import "bootstrap-responsive";
 
 .center { float: none; margin-left: auto; margin-right: auto; max-width: 700px; }
 
-.provider-list { margin-left: 180px; }
 .provider-list ul { margin: 0px; list-style: none;}
 .google-icon { color: red; }
 .twitter-icon { color: #2C77BA; }
-
+article {
+  outline-style: none;
+}
 .entry {
   font-family: "Lora",Georgia,Cambria,"Times New Roman",Times,serif;
   font-weight: 400;
@@ -43,4 +45,8 @@ body {
 
 h1 {
   letter-spacing: -1px;
+}
+
+.text-menu.hide {
+  display: block;
 }

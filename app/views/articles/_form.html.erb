@@ -35,6 +35,9 @@
     <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 articles_path, :class => 'btn' %>
   </div>
+  <script type="text/javascript">
+    grande.bind(document.querySelectorAll("#article-entry"));
+  </script>
 <% end %>
 
 
