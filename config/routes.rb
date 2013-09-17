@@ -7,6 +7,8 @@ GraspNew::Application.routes.draw do
      get 'import'
      post 'import'
     end
+
+    resources :notes
   end
 
   get "home_controller/index"

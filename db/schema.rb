@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130907150224) do
+ActiveRecord::Schema.define(:version => 20130917123722) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -20,6 +20,19 @@ ActiveRecord::Schema.define(:version => 20130907150224) do
     t.datetime "updated_at", :null => false
     t.integer  "user_id"
   end
+
+  create_table "notes", :force => true do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "article_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "selection"
+    t.integer  "block"
+  end
+
+  add_index "notes", ["article_id"], :name => "index_notes_on_article_id"
+  add_index "notes", ["user_id"], :name => "index_notes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
