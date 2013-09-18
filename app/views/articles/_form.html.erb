@@ -12,21 +12,22 @@
      </ul>
     </div>
   <% end %>
-  <section>
     <article class="entry" id="article-entry" contenteditable="true">
-      <% if f.object.title? %>
-        <h1> <%= f.object.title %></h1>
-      <% else %>
-        <h1> Title </h1>
-      <% end %>
-      
-      <% if f.object.content? %>
-        <%= sanitize f.object.content, attributes: %w(id class href src) %>
-      <% else %>
-        <p> Body </p>
-      <% end %>
+      <header>
+        <% if f.object.title? %>
+          <h1 id="article-title"> <%= f.object.title %></h1>
+        <% else %>
+          <h1 id="article-title"> Title </h1>
+        <% end %>
+      </header>
+      <section id="article-content">
+        <% if f.object.content? %>
+          <%= sanitize f.object.content, attributes: %w(id class href src) %>
+        <% else %>
+          <p> Body </p>
+        <% end %>
+      </section>
     </article>
-  </section>
     <%= f.input :title, :as => :hidden  %>
     <%= f.input :content, :as => :hidden %>
 
