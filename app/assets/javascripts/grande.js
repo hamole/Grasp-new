@@ -77,13 +77,21 @@
     document.onkeydown = preprocessKeyDown;
 
     document.onkeyup = function(event){
-      var sel = window.getSelection();
+      var sel = window.getSelection(),
+      parentParagraph = getParentWithTag(sel.anchorNode, "p");
       // FF will return sel.anchorNode to be the parentNode when the triggered keyCode is 13
       if (sel.anchorNode && sel.anchorNode.nodeName !== "ARTICLE") {
         triggerNodeAnalysis(event);
 
         if (sel.isCollapsed) {
           triggerTextParse(event);
+        }
+      }
+      if (event.keyCode === 13 && editableNodes[0].contains(sel.anchorNode)) {
+        if(parentParagraph){
+          parentParagraph.removeAttribute("id");
+        } else {
+          sel.anchorNode.removeAttribute("id");
         }
       }
     };
@@ -158,9 +166,7 @@
     var sel = window.getSelection(),
         parentParagraph = getParentWithTag(sel.anchorNode, "p"),
         p,
-        isHr,
-        range,
-        addedP = false;
+        isHr;
 
     if (event.keyCode === 13 && parentParagraph) {
       prevSibling = parentParagraph.previousSibling;
@@ -170,32 +176,6 @@
       // Stop enters from creating another <p> after a <hr> on enter
       if (isHr) {
         event.preventDefault();
-      } else {
-        p = document.createElement("p");
-        insertAfter(parentParagraph, p);
-        p.innerHTML = "&nbsp;";
-        if (window.getSelection && window.document.createRange) {                    
-          range = window.document.createRange();
-          range.selectNodeContents(p);
-          range.collapse(true);
-          sel.removeAllRanges();
-          sel.addRange(range);
-        } else {
-          if (window.document.body.createTextRange) {
-            range = window.document.body.createTextRange();
-            range.moveToElementText(el);
-            range.collapse(true);
-            range.select();
-          }
-        }
-        addedP = true;
-        if (addedP) {
-            if (typeof event.preventDefault != "undefined") {
-                event.preventDefault();
-            } else {
-                eventt.returnValue = false;
-            }
-        }
       }
     }
   }
@@ -434,11 +414,12 @@
   }
 
   function triggerTextSelection() {
-      var selectedText = root.getSelection(),
-          range,
-          clientRectBounds;
+    var selectedText = root.getSelection(),
+        range,
+        clientRectBounds;
 
-      // The selected text is collapsed, push the menu out of the way
+    // The selected text is collapsed, push the menu out of the way
+    if(editableNodes[0].contains(selectedText.anchorNode)){
       if (selectedText.isCollapsed) {
         setTextMenuPosition(-999, -999);
       } else {
@@ -452,6 +433,7 @@
           (clientRectBounds.left + clientRectBounds.right) / 2
         );
       }
+    }
   }
 
   function setTextMenuPosition(top, left) {

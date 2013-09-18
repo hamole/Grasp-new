@@ -1,4 +1,4 @@
-<%= simple_form_for @article, :html => { :class => 'form-horizontal', :onsubmit=> 'return copyContent()', novalidate: true } do |f| %>
+<%= simple_form_for @article, html: { :class => 'form-horizontal', :onsubmit=> 'return copyContent()', novalidate: true, id: 'article-form' } do |f| %>
   <%= f.error_notification %>
   <% if f.object.errors.any? %>
     <div id="error_explanation">
@@ -12,24 +12,21 @@
      </ul>
     </div>
   <% end %>
-    <article class="entry" id="article-entry" contenteditable="true">
+    <article class="entry" id="article-entry" >
       <header>
-        <% if f.object.title? %>
-          <h1 id="article-title"> <%= f.object.title %></h1>
-        <% else %>
-          <h1 id="article-title"> Title </h1>
-        <% end %>
+          <h1 id="article-title" contenteditable="true" <%= f.object.title ? "" : 'class=placeholder' %>>
+            <%= f.object.title ? f.object.title : "Article Title" %>
+          </h1>
       </header>
-      <section id="article-content">
+      <hr>
+      <section id="article-content" contenteditable="true" <%= f.object.content ? "" : 'class=placeholder' %>>
         <% if f.object.content? %>
           <%= sanitize f.object.content, attributes: %w(id class href src) %>
         <% else %>
-          <p> Body </p>
+          <p>Type your article here</p>
         <% end %>
       </section>
     </article>
-    <%= f.input :title, :as => :hidden  %>
-    <%= f.input :content, :as => :hidden %>
 
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn btn-primary' %>
@@ -37,7 +34,37 @@
                 articles_path, :class => 'btn' %>
   </div>
   <script type="text/javascript">
-    grande.bind(document.querySelectorAll("#article-entry"));
+    $('#article-title').keydown(function(){
+      if ( event.which == 13 ) {
+        event.preventDefault();
+      } else if($(this).hasClass('placeholder')){
+        $(this).removeClass('placeholder');
+        $(this).text('');
+      }
+    });
+
+    $('#article-title').blur(function(){
+      if(!$(this).hasClass('placeholder') && ($.trim($(this).text()) == '')){
+        $(this).text('Article Title');
+        $(this).addClass('placeholder');
+      }
+    });
+
+    $('#article-content').keydown(function(){
+      if($(this).hasClass('placeholder')){
+        $(this).removeClass('placeholder');
+        $('#article-content p:first').text('');
+        setCaretToPos($('#article-content p:first'),0);
+      }
+    });
+
+    $('#article-content').blur(function(){
+      if(!$(this).hasClass('placeholder') && ($.trim($(this).text()) == '')){
+        $(this).html('<p>Type your article here</p>');
+        $(this).addClass('placeholder');
+      }
+    });
+    grande.bind(document.querySelectorAll("#article-content"));
   </script>
 <% end %>
 
