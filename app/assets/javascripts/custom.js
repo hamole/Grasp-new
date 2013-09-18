@@ -9,7 +9,7 @@ function copyContent (){
 	$("#article-entry :not(:first):not(em,b,i,li,span,strong)").each(
 	  function(){
 	    if($(this).is("img") || !isEmpty($(this))){
-	      content += $(this).outerHTML().replace(/&nbsp;/g,' '));
+	      content += $(this).outerHTML().replace(/&nbsp;/g,' ');
 	    }
 	  }
 	);
