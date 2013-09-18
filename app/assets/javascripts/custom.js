@@ -6,10 +6,10 @@ function copyContent (){
 	$('span').contents().unwrap();
 	$("input[name='article[title]']").val($("#article-entry :first").text());
 	var content = '';
-	$("#article-entry :not(:first):not(em,b,i,li,span)").each(
+	$("#article-entry :not(:first):not(em,b,i,li,span,strong)").each(
 	  function(){
 	    if($(this).is("img") || !isEmpty($(this))){
-	      content += $.trim($(this).outerHTML().replace(/&nbsp;/g,' '));
+	      content += $(this).outerHTML().replace(/&nbsp;/g,' '));
 	    }
 	  }
 	);

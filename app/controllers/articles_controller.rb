@@ -102,9 +102,8 @@ class ArticlesController < ApplicationController
 
   def tag_content(content,import)
     tagged_content = Nokogiri::HTML::DocumentFragment.parse(content)
-    tagged_content.css('p, blockquote').each do |block|
+    tagged_content.css('p, blockquote, ul, ol').each do |block|
       if block['id'].nil? || import
-        puts block.content
         block['id'] = Zlib.crc32 block.content
       end
     end
