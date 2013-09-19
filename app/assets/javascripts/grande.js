@@ -42,7 +42,7 @@
               <button class='header1'>h1</button> \
               <button class='header2'>h2</button> \
               <button class='quote'>&rdquo;</button> \
-              <button class='url useicons'>&#xe001;</button> \
+              <button class='url'><i class='icon-link'></i></button> \
               <input class='url-input' type='text' placeholder='Paste or type a link'/> \
             </span> \
           </span> \

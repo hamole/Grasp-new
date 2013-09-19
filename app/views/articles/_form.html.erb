@@ -37,7 +37,7 @@
     $('#article-title').keydown(function(){
       if ( event.which == 13 ) {
         event.preventDefault();
-      } else if($(this).hasClass('placeholder')){
+      } else if(event.which != 16 && $(this).hasClass('placeholder')){
         $(this).removeClass('placeholder');
         $(this).text('');
       }
@@ -51,7 +51,7 @@
     });
 
     $('#article-content').keydown(function(){
-      if($(this).hasClass('placeholder')){
+      if(event.which != 16 && $(this).hasClass('placeholder')){
         $(this).removeClass('placeholder');
         $('#article-content p:first').text('');
         setCaretToPos($('#article-content p:first'),0);
@@ -64,6 +64,8 @@
         $(this).addClass('placeholder');
       }
     });
+
+
     grande.bind(document.querySelectorAll("#article-content"));
   </script>
 <% end %>
