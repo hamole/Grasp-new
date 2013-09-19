@@ -34,6 +34,17 @@
                 articles_path, :class => 'btn' %>
   </div>
   <script type="text/javascript">
+
+    $('#article-content, #article-title').click(function(){
+      if($(this).hasClass('placeholder')) {
+        var sel = window.getSelection();
+        var range = range = document.createRange();
+        range.setStart(this, 0);
+        range.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
     $('#article-title').keydown(function(){
       if ( event.which == 13 ) {
         event.preventDefault();
