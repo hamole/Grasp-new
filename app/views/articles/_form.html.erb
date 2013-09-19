@@ -35,14 +35,17 @@
   </div>
   <script type="text/javascript">
 
-    $('#article-content, #article-title').click(function(){
+    $('#article-content, #article-title').mousedown(function(){
       if($(this).hasClass('placeholder')) {
-        var sel = window.getSelection();
-        var range = range = document.createRange();
-        range.setStart(this, 0);
-        range.collapse(true);
-        sel.removeAllRanges();
-        sel.addRange(range);
+        var el = this;
+        setTimeout(function() {
+          var sel = window.getSelection();
+          var range = range = document.createRange();
+          range.setStart(el, 0);
+          range.collapse(true);
+          sel.removeAllRanges();
+          sel.addRange(range);
+        },2);
       }
     });
     $('#article-title').keydown(function(){
@@ -62,7 +65,7 @@
     });
 
     $('#article-content').keydown(function(){
-      if(event.which != 16 && $(this).hasClass('placeholder')){
+      if(!(nonInput.indexOf(event.which) >= 0) && $(this).hasClass('placeholder')){
         $(this).removeClass('placeholder');
         $('#article-content p:first').text('');
         setCaretToPos($('#article-content p:first'),0);
@@ -75,7 +78,6 @@
         $(this).addClass('placeholder');
       }
     });
-
 
     grande.bind(document.querySelectorAll("#article-content"));
   </script>

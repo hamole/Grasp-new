@@ -33,3 +33,7 @@ function copyContent (){
 function insertAfter(referenceNode, newNode) {
     referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }
+
+var nonInput = [16,9,27,8,17,18,20,144,37,38,39
+		,40,45,46,36,35,33,34,112,113,114,115,116,
+		117,118,119,120,121,122,123,224,91,92,93];
